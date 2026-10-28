@@ -1,0 +1,390 @@
+
+KUBERNETES SENIOR AI ENGINEER INTERVIEW
+100 TECHNICAL QUESTIONS & ANSWERS IN HINGLISH
+
+Note: Curated interview preparation questions based on commonly encountered Kubernetes concepts and production scenarios. Not verified verbatim company interview transcripts.
+
+========================================
+SECTION 1: KUBERNETES FUNDAMENTALS
+========================================
+
+1. Q: Kubernetes kya hai?
+A: Kubernetes ek container orchestration platform hai jo container deployment, scaling, networking aur lifecycle automate karta hai.
+
+2. Q: Kubernetes aur Docker mein kya difference hai?
+A: Docker containers build aur run karta hai, jabki Kubernetes multiple machines par containers orchestrate karta hai.
+
+3. Q: Kubernetes architecture ke main components kya hain?
+A: Control plane mein API Server, etcd, Scheduler aur Controller Manager hote hain, worker nodes par Kubelet, Kube-proxy aur container runtime hote hain.
+
+4. Q: Kubernetes API Server ka role kya hai?
+A: API Server cluster ka central entry point hai jo authentication, authorization, validation aur API requests handle karta hai.
+
+5. Q: etcd kya hai?
+A: etcd ek distributed key-value store hai jo Kubernetes cluster ka configuration aur desired state persist karta hai.
+
+6. Q: Kubernetes Scheduler kya karta hai?
+A: Scheduler resource availability aur scheduling constraints ke basis par Pods ko suitable nodes assign karta hai.
+
+7. Q: Kubelet kya hai?
+A: Kubelet node-level agent hai jo assigned Pods ko desired state ke according run aur monitor karta hai.
+
+8. Q: Kube-proxy ka role kya hai?
+A: Kube-proxy Services ke network traffic ko route karne ke liye node-level networking rules manage karta hai.
+
+9. Q: Pod kya hai?
+A: Pod Kubernetes ki smallest deployable unit hai jisme ek ya multiple containers shared network aur storage context mein run karte hain.
+
+10. Q: Pod aur container mein difference kya hai?
+A: Container application run karta hai, jabki Pod containers ko shared network aur storage environment provide karta hai.
+
+11. Q: Deployment aur ReplicaSet mein difference kya hai?
+A: ReplicaSet desired replicas maintain karta hai, Deployment rollout, rollback aur ReplicaSet lifecycle manage karta hai.
+
+12. Q: StatefulSet kab use karte hain?
+A: StatefulSet stable identity, ordered deployment aur persistent storage wale workloads ke liye use hota hai.
+
+13. Q: DaemonSet kya hai?
+A: DaemonSet selected nodes par typically ek Pod instance run karta hai, jaise monitoring agent.
+
+14. Q: Job aur CronJob mein difference kya hai?
+A: Job finite task execute karta hai, CronJob scheduled intervals par Jobs create karta hai.
+
+15. Q: Namespace ka purpose kya hai?
+A: Namespace resources ko logically organize aur access control manage karne mein help karta hai.
+
+========================================
+SECTION 2: PODS AND SCHEDULING
+========================================
+
+16. Q: Pod Pending state mein kyun rehta hai?
+A: Insufficient resources, scheduling constraints, unbound PVC, taints ya unavailable nodes ki wajah se.
+
+17. Q: CrashLoopBackOff kaise troubleshoot karoge?
+A: Pod logs, previous container logs, events, startup command, probes aur configuration inspect karunga.
+
+18. Q: ImagePullBackOff ka common reason kya hai?
+A: Invalid image, registry connectivity, missing credentials ya unavailable image tag.
+
+19. Q: Kubernetes requests aur limits kya hain?
+A: Requests scheduling ke liye resource requirement define karte hain, limits container ke maximum resource usage ko constrain karte hain.
+
+20. Q: CPU limit exceed hone par kya hota hai?
+A: Container CPU throttling experience karta hai, generally immediate termination nahi hota.
+
+21. Q: Memory limit exceed hone par kya hota hai?
+A: Container OOMKilled ho sakta hai aur restart policy ke according restart ho sakta hai.
+
+22. Q: Kubernetes QoS classes kaun-si hain?
+A: Guaranteed, Burstable aur BestEffort.
+
+23. Q: Guaranteed QoS kaise achieve karte hain?
+A: Har container ke CPU aur memory requests aur limits equal aur non-zero hone chahiye.
+
+24. Q: NodeSelector kya hai?
+A: NodeSelector Pod ko specific node labels match karne wale nodes par schedule karta hai.
+
+25. Q: Node affinity aur NodeSelector mein difference kya hai?
+A: Node affinity expressive scheduling rules provide karti hai, including required aur preferred conditions.
+
+26. Q: Pod affinity aur anti-affinity kya hain?
+A: Pod affinity related Pods ko paas schedule kar sakti hai, anti-affinity unhe separate schedule kar sakti hai.
+
+27. Q: Taints aur tolerations kya hain?
+A: Taints nodes par scheduling restrictions lagate hain, tolerations Pods ko matching taints tolerate karne dete hain.
+
+28. Q: PodDisruptionBudget kya hai?
+A: PDB voluntary disruptions ke dauran minimum available ya maximum unavailable Pods control karta hai.
+
+29. Q: PriorityClass kya hai?
+A: PriorityClass Pods ki scheduling priority define karta hai aur preemption influence kar sakta hai.
+
+30. Q: Topology spread constraints kya hain?
+A: Ye Pods ko zones, regions ya nodes mein specified topology ke according distribute karte hain.
+
+========================================
+SECTION 3: NETWORKING
+========================================
+
+31. Q: Kubernetes Service kya hai?
+A: Service Pods ke changing IP addresses ke upar stable network endpoint aur service discovery provide karti hai.
+
+32. Q: ClusterIP, NodePort aur LoadBalancer mein difference kya hai?
+A: ClusterIP internal access, NodePort node ports se access aur LoadBalancer external load balancer integration provide karta hai.
+
+33. Q: Headless Service kya hai?
+A: Headless Service clusterIP None use karti hai aur individual Pod endpoints DNS se discover karne deti hai.
+
+34. Q: Ingress kya hai?
+A: Ingress HTTP/HTTPS routing rules define karta hai, jinhe Ingress Controller implement karta hai.
+
+35. Q: Ingress aur LoadBalancer Service mein difference kya hai?
+A: Ingress application-layer HTTP routing karta hai, LoadBalancer Service external network access provide karti hai.
+
+36. Q: Kubernetes DNS kaise work karta hai?
+A: CoreDNS Services aur configured Pod DNS records resolve karta hai.
+
+37. Q: Pod-to-Pod communication kaise hota hai?
+A: CNI networking ke through Pods IP addresses par communicate karte hain, subject to network policies.
+
+38. Q: CNI kya hai?
+A: Container Network Interface plugins Kubernetes Pods ko network connectivity aur IP address assignment provide karte hain.
+
+39. Q: NetworkPolicy kya hai?
+A: NetworkPolicy selected Pods ke ingress aur egress traffic ko allowed rules ke according restrict karti hai.
+
+40. Q: NetworkPolicy apply karne ke baad bhi traffic allow kyun ho sakta hai?
+A: CNI enforcement support nahi karta ho, ya policy selectors aur rules incomplete hon.
+
+41. Q: ExternalName Service kya hai?
+A: ExternalName Service DNS CNAME ke through external hostname ko Kubernetes Service name se map karti hai.
+
+42. Q: kube-proxy ke service modes kya hain?
+A: kube-proxy commonly iptables ya IPVS mode use karta hai.
+
+43. Q: Kubernetes service discovery kaise hoti hai?
+A: Services DNS names aur cluster networking ke through discover hoti hain.
+
+44. Q: Cross-node Pod communication fail ho to kya check karoge?
+A: CNI configuration, routes, firewall, MTU, IP allocation aur NetworkPolicy inspect karunga.
+
+45. Q: AI inference API ko publicly expose kaise karoge?
+A: Ingress ya Gateway API, TLS, authentication, rate limiting aur backend Service ke through.
+
+========================================
+SECTION 4: STORAGE
+========================================
+
+46. Q: PersistentVolume aur PersistentVolumeClaim mein difference kya hai?
+A: PV storage resource represent karta hai, PVC application ki storage request represent karti hai.
+
+47. Q: StorageClass kya hai?
+A: StorageClass dynamic provisioning ke liye storage provider aur provisioning behavior define karti hai.
+
+48. Q: StatefulSet mein volumeClaimTemplates ka purpose kya hai?
+A: Har StatefulSet Pod ke liye individually persistent PVC create karna.
+
+49. Q: Kubernetes storage access modes kaun-se hain?
+A: ReadWriteOnce, ReadOnlyMany, ReadWriteMany aur ReadWriteOncePod.
+
+50. Q: PVC Pending kyun hoti hai?
+A: Missing StorageClass, unavailable capacity, incompatible access mode ya provisioning failure ki wajah se.
+
+51. Q: Dynamic provisioning kya hai?
+A: PVC create hone par StorageClass automatically backing storage provision kar sakti hai.
+
+52. Q: Ephemeral aur persistent storage mein difference kya hai?
+A: Ephemeral storage Pod lifecycle se tied hoti hai, persistent storage Pod recreation ke beyond data retain kar sakti hai.
+
+53. Q: Volume snapshots ka use kya hai?
+A: Storage snapshots point-in-time data recovery aur backup workflows support karti hain.
+
+54. Q: AI model weights ko Kubernetes mein kaise store karoge?
+A: Object storage, shared persistent volumes ya preloaded local cache use karunga.
+
+55. Q: Large model loading slow ho to kya optimize karoge?
+A: Model caching, parallel downloads, local NVMe aur optimized serialization evaluate karunga.
+
+========================================
+SECTION 5: DEPLOYMENT AND SCALING
+========================================
+
+56. Q: Rolling update kya hai?
+A: Rolling update existing Pods ko gradually replace karta hai without intentionally stopping the entire application.
+
+57. Q: Deployment rollback kaise karte hain?
+A: kubectl rollout undo deployment/<name> command se previous Deployment revision restore kar sakte hain.
+
+58. Q: Readiness probe kya hai?
+A: Readiness probe determine karti hai ki Pod traffic receive karne ke liye ready hai ya nahi.
+
+59. Q: Liveness probe kya hai?
+A: Liveness probe detect karti hai ki container unhealthy ya stuck hai aur restart ki zarurat ho sakti hai.
+
+60. Q: Startup probe kyun use karte hain?
+A: Slow-starting applications ko initial startup complete hone tak liveness failures se protect karne ke liye.
+
+61. Q: Readiness aur liveness probe mein difference kya hai?
+A: Readiness traffic eligibility control karti hai, liveness container restart trigger kar sakti hai.
+
+62. Q: HPA kya hai?
+A: Horizontal Pod Autoscaler metrics aur scaling policies ke basis par Pod replicas automatically adjust karta hai.
+
+63. Q: HPA aur VPA mein difference kya hai?
+A: HPA replica count scale karta hai, VPA container resource requests recommend ya adjust karta hai.
+
+64. Q: Cluster Autoscaler kya karta hai?
+A: Unschedulable Pods ya underutilized nodes ke basis par cluster node capacity scale karta hai.
+
+65. Q: HPA custom metrics kaise use karta hai?
+A: Custom Metrics API aur metrics adapter application-specific metrics scaling decisions mein use karte hain.
+
+66. Q: AI inference ke liye CPU utilization HPA sufficient hai?
+A: Nahi, request rate, queue depth, latency, GPU utilization aur memory pressure bhi relevant signals hain.
+
+67. Q: Zero-downtime deployment kaise achieve karoge?
+A: Readiness probes, rolling updates, sufficient replicas, graceful shutdown aur backward-compatible changes use karunga.
+
+68. Q: Graceful shutdown kaise implement karte hain?
+A: SIGTERM handling, traffic draining, ongoing requests complete karna aur termination grace period configure karunga.
+
+69. Q: Blue-green deployment kya hai?
+A: Blue-green deployment old aur new environments maintain karke traffic switch se release transition karta hai.
+
+70. Q: Canary deployment kya hai?
+A: Canary deployment limited traffic new version ko deta hai aur metrics validate karke rollout expand karta hai.
+
+========================================
+SECTION 6: SECURITY AND OPERATIONS
+========================================
+
+71. Q: RBAC kya hai?
+A: Role-Based Access Control Kubernetes API permissions ko Roles, ClusterRoles aur bindings ke through manage karta hai.
+
+72. Q: Role aur ClusterRole mein difference kya hai?
+A: Role namespace-scoped permissions define karta hai, ClusterRole cluster-wide ya reusable permissions define kar sakta hai.
+
+73. Q: ServiceAccount kya hai?
+A: ServiceAccount Pods ko Kubernetes API ke against workload identity provide karta hai.
+
+74. Q: Secrets ko secure kaise karoge?
+A: Encryption at rest, least-privilege RBAC, external secret manager aur controlled secret delivery use karunga.
+
+75. Q: Kubernetes Secret default encrypted hota hai?
+A: Secret data default configuration mein base64 encoded hota hai; encryption at rest separately configure karni hoti hai.
+
+76. Q: Kubernetes Pod Security Standards kya hain?
+A: Privileged, Baseline aur Restricted security policy levels define karte hain.
+
+77. Q: Image security kaise improve karoge?
+A: Trusted minimal images, vulnerability scanning, signed images, pinned digests aur non-root execution use karunga.
+
+78. Q: Admission Controller kya hai?
+A: Admission controllers API requests ko persistence se pehle validate ya mutate karte hain.
+
+79. Q: Audit logging ka purpose kya hai?
+A: Kubernetes API activity ka record security investigation, compliance aur troubleshooting support karta hai.
+
+80. Q: Production cluster mein observability kaise implement karoge?
+A: Metrics, logs, distributed tracing, dashboards, alerts aur workload-level SLOs integrate karunga.
+
+========================================
+SECTION 7: SENIOR AI ENGINEER AND GPU
+========================================
+
+81. Q: Kubernetes mein GPU workload kaise schedule hota hai?
+A: NVIDIA device plugin GPU resources advertise karta hai aur Pod GPU resource requests ke basis par schedule hota hai.
+
+82. Q: GPU resource request ka example kya hai?
+A: Container resources mein nvidia.com/gpu: 1 request karke ek GPU device request kar sakte hain.
+
+83. Q: Kubernetes GPU memory automatically manage karta hai?
+A: Kubernetes GPU count schedule karta hai, lekin GPU memory allocation aur model utilization largely application manage karta hai.
+
+84. Q: GPU node par Pod Pending ho to kya check karoge?
+A: GPU allocatable resources, device plugin, node labels, taints, driver compatibility aur scheduling events inspect karunga.
+
+85. Q: GPU sharing kaise achieve karte hain?
+A: Supported hardware/software ke through time-slicing, NVIDIA MIG ya compatible GPU sharing mechanisms use kar sakte hain.
+
+86. Q: MIG kya hai?
+A: NVIDIA Multi-Instance GPU supported GPUs ko isolated hardware instances mein partition karta hai.
+
+87. Q: LLM inference ke liye Kubernetes deployment architecture kya hoga?
+A: GPU-backed inference Pods, model-serving runtime, autoscaling, load balancing, observability aur model artifact storage.
+
+88. Q: LLM serving mein batching kyun important hai?
+A: Batching GPU utilization aur throughput improve kar sakti hai, lekin excessive batching latency badha sakti hai.
+
+89. Q: Continuous batching kya hai?
+A: Continuous batching running inference requests ke beech dynamically new requests add karke GPU utilization improve karta hai.
+
+90. Q: LLM inference mein OOM kaise troubleshoot karoge?
+A: GPU memory usage, model size, batch size, sequence length, KV cache, framework logs aur CUDA errors inspect karunga.
+
+91. Q: KV cache kya hai aur Kubernetes scaling par iska impact kya hai?
+A: KV cache autoregressive inference mein attention states store karta hai, GPU memory consumption badhata hai aur concurrency limit karta hai.
+
+92. Q: Model serving mein autoscaling ke best metrics kya hain?
+A: Request queue depth, request rate, TTFT, p95 latency, GPU utilization aur available memory combine karna useful hai.
+
+93. Q: Kubernetes HPA GPU utilization directly scale kar sakta hai?
+A: HPA custom ya external metrics adapter ke through GPU utilization consume kar sakta hai.
+
+94. Q: Model cold-start latency kaise reduce karoge?
+A: Model preloading, persistent cache, optimized artifacts, warm replicas aur startup-aware readiness configuration use karunga.
+
+95. Q: Large model ko multiple GPUs par deploy kaise karoge?
+A: Model-serving framework ke tensor/pipeline parallelism aur compatible multi-GPU scheduling configuration use karunga.
+
+96. Q: Kubernetes mein distributed training kaise run karte hain?
+A: PyTorchJob ya Kubeflow Training Operator se coordinated distributed worker Pods manage kar sakte hain.
+
+97. Q: Distributed training mein worker failure ka impact kya hai?
+A: Failure collective operations stall ya training abort kar sakta hai; checkpointing aur coordinated restart strategy required hoti hai.
+
+98. Q: AI inference ke liye graceful scale-down kaise karoge?
+A: Traffic drain, request completion, queue handling, model replica protection aur termination grace period configure karunga.
+
+99. Q: Model rollout mein version compatibility kaise maintain karoge?
+A: Versioned artifacts, canary traffic, compatibility checks, model metadata aur rollback-ready deployments use karunga.
+
+100. Q: Senior AI Engineer ke perspective se Kubernetes production architecture kaise design karoge?
+A: Secure GPU node pools, autoscaling, resilient model serving, observability, controlled rollouts, efficient model caching aur workload-specific SLOs design karunga.
+
+========================================
+TOP 10 SENIOR-LEVEL SCENARIO QUESTIONS
+========================================
+
+1. GPU utilization low hai, lekin inference latency high hai. Bottleneck kaise identify karoge?
+
+2. Pod Running hai, lekin model inference fail ho raha hai. End-to-end debugging approach kya hogi?
+
+3. GPU memory OOM ke baad Pod restart ho raha hai. Root cause aur mitigation kya hai?
+
+4. HPA replicas increase kar raha hai, lekin latency improve nahi ho rahi. Kyun?
+
+5. Model rollout ke baad p99 latency suddenly increase ho gayi. Rollback aur investigation strategy kya hogi?
+
+6. Large LLM model ko cold start ke bina deploy kaise karoge?
+
+7. Distributed training mein ek worker fail ho jaye to recovery kaise karoge?
+
+8. GPU nodes expensive hain. Cost aur utilization optimize kaise karoge?
+
+9. Inference requests burst mein aati hain. Queueing aur autoscaling kaise design karoge?
+
+10. Multi-tenant GPU inference mein isolation aur fairness kaise maintain karoge?
+
+========================================
+IMPORTANT INTERVIEW TIP
+========================================
+
+Senior AI Engineer interview mein sirf definition bolna enough nahi hai.
+
+Har answer ke saath:
+- Production example
+- Failure mode
+- Debugging command
+- Architecture trade-off
+- Performance impact
+
+explain karna strong signal deta hai.
+
+EXAMPLE 1:
+
+Interviewer: GPU inference Pod Pending hai, kya check karoge?
+
+Answer: kubectl describe pod se scheduling events check karunga, phir GPU allocatable capacity, device plugin health, node taints, resource requests aur GPU node availability verify karunga.
+
+EXAMPLE 2:
+
+Interviewer: Inference latency high hai, GPU utilization low hai?
+
+Answer: CPU preprocessing, request queueing, token generation, batching, model loading aur network overhead profile karunga. GPU utilization ko single bottleneck indicator nahi maanunga.
+
+EXAMPLE 3:
+
+Interviewer: Model deployment mein zero downtime kaise ensure karoge?
+
+Answer: Readiness probes, warm-up, canary rollout, sufficient GPU capacity, traffic draining aur rollback strategy implement karunga.
